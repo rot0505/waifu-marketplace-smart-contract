@@ -12,7 +12,8 @@ contract Addresses is OwnableUpgradeable {
 
     enum NFTType {
         NONE,
-        EIP721
+        EIP721,
+        EIP1155
     }
 
     address[] private normalContracts;
@@ -21,6 +22,7 @@ contract Addresses is OwnableUpgradeable {
     mapping(address => NFTType) private contractTypes;
 
     bytes4 private constant INTERFACE_SIGNATURE_ERC721 = 0x80ac58cd;
+    bytes4 private constant INTERFACE_SIGNATURE_ERC1155 = 0xd9b67a26;
 
     modifier exists(address contractAddr) {
         require(existingContract(contractAddr), "Not Existing Contract");
@@ -38,7 +40,7 @@ contract Addresses is OwnableUpgradeable {
 
     function existingContract(address contractAddr) public view returns (bool) {
         NFTType ctrctType = contractTypes[contractAddr];
-        return ctrctType == NFTType.EIP721;
+        return ctrctType == NFTType.EIP721 || ctrctType == NFTType.EIP1155;
     }
 
     function add(address contractAddr)
@@ -50,6 +52,9 @@ contract Addresses is OwnableUpgradeable {
         if (ctrct.supportsInterface(INTERFACE_SIGNATURE_ERC721)) {
             contractTypes[contractAddr] = NFTType.EIP721;
             normalContracts.push(contractAddr);
+        } else if (ctrct.supportsInterface(INTERFACE_SIGNATURE_ERC1155)) {
+            contractTypes[contractAddr] = NFTType.EIP1155;
+            multiTokenContracts.push(contractAddr);
         } else {
             revert("Unknown NFT Type");
         }
@@ -71,6 +76,8 @@ contract Addresses is OwnableUpgradeable {
     {
         if (contractTypes[contractAddr] == NFTType.EIP721) {
             normalContracts.remove(contractAddr);
+        } else if (contractTypes[contractAddr] == NFTType.EIP1155) {
+            multiTokenContracts.remove(contractAddr);
         }
         verified[contractAddr] = false;
     }

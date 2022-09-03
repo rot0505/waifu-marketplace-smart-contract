@@ -8,7 +8,9 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/token/ERC1155/IERC1155.sol";
 
+import "@openzeppelin/contracts/token/ERC1155/utils/ERC1155Holder.sol";
 import "@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol";
 
 import "../interfaces/IRewardManager.sol";
@@ -19,7 +21,11 @@ import "../libraries/BasisPoints.sol";
 import "../libraries/CalculateRewardLib.sol";
 import "../libraries/ClaimRewardLib.sol";
 
-contract NFTPredictionPoolStorageStructure is OwnableUpgradeable, ERC721Holder {
+contract NFTPredictionPoolStorageStructure is
+    OwnableUpgradeable,
+    ERC721Holder,
+    ERC1155Holder
+{
     address public nftPredictionPoolImplementation;
     address public poolCreator;
 
@@ -77,8 +83,9 @@ contract NFTPredictionPoolStorageStructure is OwnableUpgradeable, ERC721Holder {
 
     IPredictionNumber public predictionNumberContract;
 
-    // can be "ERC721"
+    // can be "ERC721" or "ERC1155"
     uint256 public constant erc721 = 721;
+    uint256 public constant erc1155 = 1155;
 
     uint256 public nftType;
 

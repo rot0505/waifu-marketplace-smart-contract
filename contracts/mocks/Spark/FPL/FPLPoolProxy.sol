@@ -68,7 +68,10 @@ contract NFTPredictionPoolProxy is NFTPredictionPoolStorageStructure {
             "0301 launch date can't be in the past"
         );
 
-        require(_variables[10] == erc721, "0302 only 721 ERC");
+        require(
+            _variables[10] == erc721 || _variables[10] == erc1155,
+            "0302 only 721 and 1155 ERCs"
+        );
 
         nftCollection = _nftCollection;
 

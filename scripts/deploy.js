@@ -58,7 +58,25 @@ async function main() {
   await (await erc721Auction.setSparkTokenContractAddr(sparkToken.address)).wait()
   await (await erc721Auction.setAddressesContractAddr(addresses.address)).wait()
 
+  const ERC1155Sale = await ethers.getContractFactory('ERC1155Sale', { libraries: { ArrayLibrary: arrayLibrary.address } });
+  const erc1155Sale = await upgrades.deployProxy(ERC1155Sale, [], { unsafeAllow: ['external-library-linking'] })
 
+  await erc1155Sale.deployed();
+
+  console.log('ERC1155Sale Contract Address:', erc1155Sale.address);
+
+  await (await erc1155Sale.setSparkTokenContractAddr(sparkToken.address)).wait()
+  await (await erc1155Sale.setAddressesContractAddr(addresses.address)).wait()
+
+  const ERC1155Auction = await ethers.getContractFactory('ERC1155Auction', { libraries: { ArrayLibrary: arrayLibrary.address } });
+  const erc1155Auction = await upgrades.deployProxy(ERC1155Auction, [], { unsafeAllow: ['external-library-linking'] })
+
+  await erc1155Auction.deployed();
+
+  console.log('ERC1155Auction Contract Address:', erc1155Auction.address);
+
+  await (await erc1155Auction.setSparkTokenContractAddr(sparkToken.address)).wait()
+  await (await erc1155Auction.setAddressesContractAddr(addresses.address)).wait()
 }
 
 // We recommend this pattern to be able to use async/await everywhere

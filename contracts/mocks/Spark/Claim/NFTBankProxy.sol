@@ -4,8 +4,9 @@ pragma solidity ^0.8.0;
 import "./NFTBankStorageStructure.sol";
 
 contract NFTBankProxy is NFTBankStorageStructure {
+
     modifier onlyPoolCreator() {
-        require(msg.sender == poolCreator, "msg.sender is not an owner");
+        require (msg.sender == poolCreator, "msg.sender is not an owner");
         _;
     }
 
@@ -17,10 +18,7 @@ contract NFTBankProxy is NFTBankStorageStructure {
     }
 
     // here we can upgrade our implementation
-    function upgradeTo(address _nftBankImplementation)
-        external
-        onlyPoolCreator
-    {
+    function upgradeTo(address _nftBankImplementation) external onlyPoolCreator {
         require(upgradeEnabled, "Upgrade is not enabled yet");
         require(nftBankImplementation != _nftBankImplementation);
         _setNFTBankImplementation(_nftBankImplementation);
@@ -30,11 +28,11 @@ contract NFTBankProxy is NFTBankStorageStructure {
     /**
      * @notice StakingPoolImplementation can't be upgraded unless superAdmin sets upgradeEnabled
      */
-    function enableUpgrade() external onlyOwner {
+    function enableUpgrade() external onlyOwner{
         upgradeEnabled = true;
     }
 
-    function disableUpgrade() external onlyOwner {
+    function disableUpgrade() external onlyOwner{
         upgradeEnabled = false;
     }
 
@@ -45,7 +43,8 @@ contract NFTBankProxy is NFTBankStorageStructure {
         address _nftToken,
         address _poolCreator,
         uint256[2] memory _variables
-    ) public initializer onlyPoolCreator {
+    ) public initializer onlyPoolCreator
+    {
         // we should call inits because we don't have a constructor to do it for us
         OwnableUpgradeable.__Ownable_init();
         ContextUpgradeable.__Context_init();
@@ -55,7 +54,10 @@ contract NFTBankProxy is NFTBankStorageStructure {
             "0301 launch date can't be in the past"
         );
 
-        require(_variables[1] == erc721, "0302 only 721 ERC");
+        require(
+            _variables[1] == erc721 || _variables[1] == erc1155,
+            "0302 only 721 and 1155 ERCs"
+        );
 
         bankType = _bankType;
 
@@ -86,7 +88,7 @@ contract NFTBankProxy is NFTBankStorageStructure {
             }
         }
     }
-
+    
     // Added to get rid of the warning
     receive() external payable {
         // custom function code

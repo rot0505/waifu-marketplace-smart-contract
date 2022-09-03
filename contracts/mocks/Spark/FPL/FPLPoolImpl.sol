@@ -275,8 +275,8 @@ contract NFTPredictionPoolImplementation is
 
     function updateNFTType(uint256 _nftType) public onlyPoolCreator {
         require(
-            _nftType == erc721,
-            "0302 only 721 ERC"
+            _nftType == erc721 || _nftType == erc1155,
+            "0302 only 721 and 1155 ERCs"
         );
 
         nftType = _nftType;
@@ -463,6 +463,29 @@ contract NFTPredictionPoolImplementation is
         stuckToken.safeTransferFrom(address(this), _receiver, _id);
     } 
  
+    function withdrawStuckERC1155NFTs(
+        address _stuckToken, 
+        address _receiver, 
+        uint256 _id, 
+        uint256 _amount, 
+        bytes memory _data
+    ) external onlyPoolCreator
+    {  
+        _transferERC1155NFTs(_stuckToken, _receiver, _id, _amount, _data);
+    } 
+     
+    function _transferERC1155NFTs(
+        address _stuckToken, 
+        address _receiver, 
+        uint256 _id, 
+        uint256 _amount, 
+        bytes memory _data
+    ) internal
+    {
+        IERC1155 stuckToken = IERC1155(_stuckToken);
+        stuckToken.safeTransferFrom(address(this), _receiver, _id, _amount, _data);
+    }
+
     function declareEmergency()
         external
         onlyPoolCreator

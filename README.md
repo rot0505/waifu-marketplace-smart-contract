@@ -77,7 +77,6 @@ classDiagram
   class MarketplaceBase {
     <<abstract>>
     +address addressesContractAddr
-    +address sparkTokenContractAddr
     -map~address,uint256[2]~ claimable
     -map~address,uint256[]~ saleTokenIds
     -map~address,uint256[]~ saleTokenIdsBySeller
@@ -87,7 +86,7 @@ classDiagram
     -_transferFund(payment, price, destination)
     -_payFund(payment, price, destination, contractAddr, tokenId)
     +setAddressesContractAddr(contractAddr)
-    +setSparkTokenContractAddr(newSparkAddr)
+    +setTokenContractAddr(newAddr)
     +getSaleTokens(contractAddr) uint256[]
     +getSaleTokensBySeller(contractAddr, seller) uint256[]
     +getClaimable(user, index) uint256[]
@@ -209,7 +208,6 @@ classDiagram
   class MarketplaceBase {
     <<abstract>>
     +address addressesContractAddr
-    +address sparkTokenContractAddr
     -map~address,uint256[2]~ claimable
     -map~address,uint256[]~ saleTokenIds
     -map~address,uint256[]~ saleTokenIdsBySeller
@@ -219,7 +217,7 @@ classDiagram
     -_transferFund(payment, price, destination)
     -_payFund(payment, price, destination, contractAddr, tokenId)
     +setAddressesContractAddr(contractAddr)
-    +setSparkTokenContractAddr(newSparkAddr)
+    +setTokenContractAddr(newAddr)
     +getSaleTokens(contractAddr) uint256[]
     +getSaleTokensBySeller(contractAddr, seller) uint256[]
     +getClaimable(user, index) uint256[]

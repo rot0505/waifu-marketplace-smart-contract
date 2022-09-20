@@ -71,6 +71,14 @@ module.exports = {
       blockGasLimit: 0x1fffffffffffff,
       allowUnlimitedContractSize: true,
       timeout: 1800000
+    },
+    bsc_testnet: {
+      url: `https://data-seed-prebsc-1-s1.binance.org:8545`,
+      tags: ["nft", "marketplace", "test"],
+      chainId: 97,
+      accounts: real_accounts,
+      gas: 2100000,
+      gasPrice: 12000000000
     }
   },
   gasReporter: {

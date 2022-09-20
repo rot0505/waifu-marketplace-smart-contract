@@ -49,11 +49,8 @@ abstract contract MarketplaceBase is
         addressesContractAddr = contractAddr;
     }
 
-    function setSparkTokenContractAddr(address newSparkAddr)
-        external
-        onlyOwner
-    {
-        tokenAddrs[1] = newSparkAddr;
+    function setTokenContractAddr(address newTokenAddr) external onlyOwner {
+        tokenAddrs[1] = newTokenAddr;
     }
 
     function claim(uint256 amount, uint8 index) external {

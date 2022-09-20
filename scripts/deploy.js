@@ -24,12 +24,12 @@ async function main() {
 
   console.log('ArrayLibrary Contract Address:', arrayLibrary.address)
 
-  const SparkTokenFactory = await ethers.getContractFactory('SparksToken')
-  const sparkToken = await SparkTokenFactory.deploy()
+  const TestTokenFactory = await ethers.getContractFactory('TestToken')
+  const testToken = await TestTokenFactory.deploy()
 
-  await sparkToken.deployed()
+  await testToken.deployed()
 
-  console.log('Spark Token Contract Address:', sparkToken.address)
+  console.log('Token Contract Address:', testToken.address)
 
   const AddressesFactory = await ethers.getContractFactory('Addresses', { libraries: { ArrayLibrary: arrayLibrary.address } })
   const addresses = await AddressesFactory.deploy()
@@ -45,7 +45,7 @@ async function main() {
 
   console.log('ERC721Sale Contract Address:', erc721Sale.address)
 
-  await (await erc721Sale.setSparkTokenContractAddr(sparkToken.address)).wait()
+  await (await erc721Sale.setTokenContractAddr(testToken.address)).wait()
   await (await erc721Sale.setAddressesContractAddr(addresses.address)).wait()
 
   const ERC721Auction = await ethers.getContractFactory('ERC721Auction', { libraries: { ArrayLibrary: arrayLibrary.address } });
@@ -55,7 +55,7 @@ async function main() {
 
   console.log('ERC721Auction Contract Address:', erc721Auction.address);
 
-  await (await erc721Auction.setSparkTokenContractAddr(sparkToken.address)).wait()
+  await (await erc721Auction.setTokenContractAddr(testToken.address)).wait()
   await (await erc721Auction.setAddressesContractAddr(addresses.address)).wait()
 
   const ERC1155Sale = await ethers.getContractFactory('ERC1155Sale', { libraries: { ArrayLibrary: arrayLibrary.address } });
@@ -65,7 +65,7 @@ async function main() {
 
   console.log('ERC1155Sale Contract Address:', erc1155Sale.address);
 
-  await (await erc1155Sale.setSparkTokenContractAddr(sparkToken.address)).wait()
+  await (await erc1155Sale.setTokenContractAddr(testToken.address)).wait()
   await (await erc1155Sale.setAddressesContractAddr(addresses.address)).wait()
 
   const ERC1155Auction = await ethers.getContractFactory('ERC1155Auction', { libraries: { ArrayLibrary: arrayLibrary.address } });
@@ -75,7 +75,7 @@ async function main() {
 
   console.log('ERC1155Auction Contract Address:', erc1155Auction.address);
 
-  await (await erc1155Auction.setSparkTokenContractAddr(sparkToken.address)).wait()
+  await (await erc1155Auction.setTokenContractAddr(testToken.address)).wait()
   await (await erc1155Auction.setAddressesContractAddr(addresses.address)).wait()
 }
 

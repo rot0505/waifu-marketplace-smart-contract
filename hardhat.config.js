@@ -61,6 +61,14 @@ module.exports = {
       gas: 2100000,
       gasPrice: 8000000000
     },
+    goerli: {
+      url: `https://goerli.infura.io/v3/${process.env.INFURA_ID}`,
+      tags: ["nft", "marketplace", "test"],
+      chainId: 5,
+      accounts: real_accounts,
+      gas: 2100000,
+      gasPrice: 12000000000
+    },
     avalancheFuji: {
       url: `https://api.avax-test.network/ext/bc/C/rpc`,
       tags: ["nft", "marketplace", "test"],

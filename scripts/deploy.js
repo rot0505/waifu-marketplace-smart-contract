@@ -24,12 +24,12 @@ async function main() {
 
   console.log('ArrayLibrary Contract Address:', arrayLibrary.address)
 
-  const TestTokenFactory = await ethers.getContractFactory('TestToken')
-  const testToken = await TestTokenFactory.deploy()
+  // const TestTokenFactory = await ethers.getContractFactory('TestToken')
+  // const testToken = await TestTokenFactory.deploy()
 
-  await testToken.deployed()
+  // await testToken.deployed()
 
-  console.log('Token Contract Address:', testToken.address)
+  // console.log('Token Contract Address:', testToken.address)
 
   const AddressesFactory = await ethers.getContractFactory('Addresses', { libraries: { ArrayLibrary: arrayLibrary.address } })
   const addresses = await AddressesFactory.deploy()
@@ -48,35 +48,35 @@ async function main() {
   await (await erc721Sale.setTokenContractAddr(testToken.address)).wait()
   await (await erc721Sale.setAddressesContractAddr(addresses.address)).wait()
 
-  const ERC721Auction = await ethers.getContractFactory('ERC721Auction', { libraries: { ArrayLibrary: arrayLibrary.address } });
-  const erc721Auction = await upgrades.deployProxy(ERC721Auction, [], { unsafeAllow: ['external-library-linking'] })
+  // const ERC721Auction = await ethers.getContractFactory('ERC721Auction', { libraries: { ArrayLibrary: arrayLibrary.address } });
+  // const erc721Auction = await upgrades.deployProxy(ERC721Auction, [], { unsafeAllow: ['external-library-linking'] })
 
-  await erc721Auction.deployed();
+  // await erc721Auction.deployed();
 
-  console.log('ERC721Auction Contract Address:', erc721Auction.address);
+  // console.log('ERC721Auction Contract Address:', erc721Auction.address);
 
-  await (await erc721Auction.setTokenContractAddr(testToken.address)).wait()
-  await (await erc721Auction.setAddressesContractAddr(addresses.address)).wait()
+  // await (await erc721Auction.setTokenContractAddr(testToken.address)).wait()
+  // await (await erc721Auction.setAddressesContractAddr(addresses.address)).wait()
 
-  const ERC1155Sale = await ethers.getContractFactory('ERC1155Sale', { libraries: { ArrayLibrary: arrayLibrary.address } });
-  const erc1155Sale = await upgrades.deployProxy(ERC1155Sale, [], { unsafeAllow: ['external-library-linking'] })
+  // const ERC1155Sale = await ethers.getContractFactory('ERC1155Sale', { libraries: { ArrayLibrary: arrayLibrary.address } });
+  // const erc1155Sale = await upgrades.deployProxy(ERC1155Sale, [], { unsafeAllow: ['external-library-linking'] })
 
-  await erc1155Sale.deployed();
+  // await erc1155Sale.deployed();
 
-  console.log('ERC1155Sale Contract Address:', erc1155Sale.address);
+  // console.log('ERC1155Sale Contract Address:', erc1155Sale.address);
 
-  await (await erc1155Sale.setTokenContractAddr(testToken.address)).wait()
-  await (await erc1155Sale.setAddressesContractAddr(addresses.address)).wait()
+  // await (await erc1155Sale.setTokenContractAddr(testToken.address)).wait()
+  // await (await erc1155Sale.setAddressesContractAddr(addresses.address)).wait()
 
-  const ERC1155Auction = await ethers.getContractFactory('ERC1155Auction', { libraries: { ArrayLibrary: arrayLibrary.address } });
-  const erc1155Auction = await upgrades.deployProxy(ERC1155Auction, [], { unsafeAllow: ['external-library-linking'] })
+  // const ERC1155Auction = await ethers.getContractFactory('ERC1155Auction', { libraries: { ArrayLibrary: arrayLibrary.address } });
+  // const erc1155Auction = await upgrades.deployProxy(ERC1155Auction, [], { unsafeAllow: ['external-library-linking'] })
 
-  await erc1155Auction.deployed();
+  // await erc1155Auction.deployed();
 
-  console.log('ERC1155Auction Contract Address:', erc1155Auction.address);
+  // console.log('ERC1155Auction Contract Address:', erc1155Auction.address);
 
-  await (await erc1155Auction.setTokenContractAddr(testToken.address)).wait()
-  await (await erc1155Auction.setAddressesContractAddr(addresses.address)).wait()
+  // await (await erc1155Auction.setTokenContractAddr(testToken.address)).wait()
+  // await (await erc1155Auction.setAddressesContractAddr(addresses.address)).wait()
 }
 
 // We recommend this pattern to be able to use async/await everywhere
